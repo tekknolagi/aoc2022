@@ -18,10 +18,16 @@ def pri(item):
 def main(args):
     total_pri = 0
     with open(args.file, "r") as f:
-        for line in f:
-            cmp1, cmp2 = halve(line)
-            common = frozenset(cmp1) & frozenset(cmp2)
-            assert len(common) == 1
+        while True:
+            elf1 = f.readline().strip()
+            if not elf1:
+                break
+            elf2 = f.readline().strip()
+            elf3 = f.readline().strip()
+            common = frozenset(elf1) & frozenset(elf2) & frozenset(elf3)
+            assert (
+                len(common) == 1
+            ), f"unexpected commonalities {common} in {elf1!r}, {elf2!r}, {elf3!r}"
             total_pri += pri(next(iter(common)))
     return total_pri
 
