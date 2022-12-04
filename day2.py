@@ -1,15 +1,20 @@
 import argparse
 
 
-def normalize(shape):
+def normalize_shape(shape):
     return {
         "A": "rock",
-        "X": "rock",
         "B": "paper",
-        "Y": "paper",
         "C": "scissors",
-        "Z": "scissors",
     }[shape]
+
+
+def normalize_goal(letter):
+    return {
+        "X": 1,
+        "Y": 0,
+        "Z": -1,
+    }[letter]
 
 
 def cmp(opp, you):
@@ -33,13 +38,17 @@ def score_shape(shape):
     }[shape]
 
 
-def score(opp, you):
+def score(opp, goal):
     "Return a two-tuple of (opp_score, you_score)"
-    opp = normalize(opp)
-    you = normalize(you)
-    score = cmp(opp, you)
+    opp = normalize_shape(opp)
+    for move in ("rock", "paper", "scissors"):
+        score = cmp(opp, move)
+        if score == normalize_goal(goal):
+            break
+    else:
+        raise Exception("UNREACHABLE")
     opp_score = score_shape(opp)
-    you_score = score_shape(you)
+    you_score = score_shape(move)
     if score == 0:
         return (opp_score + 3, you_score + 3)
     if score > 0:
