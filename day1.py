@@ -14,7 +14,7 @@ def main(args):
     if current_total > 0:
         # The last group in a file wouldn't have had a blank line after
         total_calories.append(current_total)
-    return max(total_calories)
+    return (max(total_calories), sum(sorted(total_calories, reverse=True)[:3]))
 
 
 if __name__ == "__main__":
