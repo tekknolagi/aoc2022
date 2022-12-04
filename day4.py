@@ -1,8 +1,8 @@
 import argparse
 
 
-def fully_contains(left, right):
-    return left[0] <= right[0] and left[1] >= right[1]
+def overlaps(left, right):
+    return left[0] <= right[0] and right[0] <= left[1]
 
 
 def main(args):
@@ -12,9 +12,7 @@ def main(args):
             left_range, right_range = pair.strip().split(",")
             left_range = (*map(int, left_range.split("-")),)
             right_range = (*map(int, right_range.split("-")),)
-            if fully_contains(left_range, right_range) or fully_contains(
-                right_range, left_range
-            ):
+            if overlaps(left_range, right_range) or overlaps(right_range, left_range):
                 total += 1
     return total
 
