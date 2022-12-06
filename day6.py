@@ -3,13 +3,14 @@ from collections import deque
 
 
 def main(args):
-    last_four = deque([], maxlen=4)
+    n = 14
+    last_n = deque([], maxlen=n)
     idx = 0
     with open(args.file, "r") as f:
         while (c := f.read(1)) != "":
-            last_four.append(c)
+            last_n.append(c)
             idx += 1
-            if len(last_four) == 4 and len(frozenset(last_four)) == 4:
+            if len(last_n) == n and len(frozenset(last_n)) == n:
                 return idx
     raise Exception("could not find start of packet")
 
