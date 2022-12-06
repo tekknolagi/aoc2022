@@ -29,8 +29,9 @@ def main(args):
         for command in f:
             groups = re.match(r"move (\d+) from (\d+) to (\d+)", command).groups()
             count, from_, to = map(int, groups)
-            for i in range(count):
-                towers[to].append(towers[from_].pop())
+            to_move = towers[from_][-count:]
+            del towers[from_][-count:]
+            towers[to].extend(to_move)
     return "".join(tower[-1] for tower in towers[1:])
 
 
